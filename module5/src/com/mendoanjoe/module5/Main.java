@@ -60,7 +60,7 @@ public class Main {
                     query.updateMahasiswa(
                             mainActivity.getFieldNama().getText(),
                             mainActivity.getFieldAlamat().getText(),
-                            mainActivity.getFieldTelepon().getText(), currentIndex);
+                            mainActivity.getFieldTelepon().getText(), dataList.get(currentIndex).getId());
 
                     mainActivity.getButtonEdit().setText("Edit");
                     mainActivity.getButtonAdd().setText("Add");
@@ -90,7 +90,7 @@ public class Main {
          */
         mainActivity.getButtonDelete().addActionListener(e -> {
             if (currentIndex != -1) {
-                query.deleteMahasiswa(currentIndex);
+                query.deleteMahasiswa(dataList.get(currentIndex).getId());
                 getDataMahasiswa(query);
             }
         });
@@ -143,7 +143,6 @@ public class Main {
 
         setEnableText(false);
     }
-
 
     private static Connection getConnection() {
         Connection connection = null;

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Query {
-    private static List<Data> dataList = new ArrayList<>();
     private static Connection connection;
 
     public Query(Connection conn) {
@@ -35,7 +34,7 @@ public class Query {
             statement.setString(1, nama);
             statement.setString(2, alamat);
             statement.setString(3, telepon);
-            statement.setInt(4, dataList.get(currentIndex).getId());
+            statement.setInt(4, currentIndex);
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -46,7 +45,7 @@ public class Query {
         String query = "delete from mahasiswa where id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, dataList.get(currentIndex).getId());
+            statement.setInt(1, currentIndex);
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
