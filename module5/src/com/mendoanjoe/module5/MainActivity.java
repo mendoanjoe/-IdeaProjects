@@ -3,47 +3,47 @@ package com.mendoanjoe.module5;
 import javax.swing.*;
 
 public class MainActivity {
-    private JPanel panel1;
-    private JTextField tfNama;
+    private JPanel mainPanel;
+    private JTable mainTable;
     private JLabel namaLabel;
-    private JTable table1;
+    private JScrollPane mTable;
     private JButton addButton;
     private JButton editButton;
     private JButton deleteButton;
-    private JTextField tfAlamat;
-    private JTextField tfTelepon;
-    private JScrollPane mTable;
+    private JTextField fieldNama;
+    private JTextField fieldAlamat;
+    private JTextField fieldTelepon;
 
-    public JPanel getPanel1() {
-        return panel1;
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
-    public JButton getAddButton() {
+    public JButton getButtonAdd() {
         return addButton;
     }
 
-    public JButton getEditButton() {
+    public JButton getButtonEdit() {
         return editButton;
     }
 
-    public JButton getDeleteButton() {
+    public JButton getButtonDelete() {
         return deleteButton;
     }
 
-    public JTextField getTfNama() {
-        return tfNama;
+    public JTextField getFieldNama() {
+        return fieldNama;
     }
 
-    public JTable getTable1() {
-        return table1;
+    public JTable getTable() {
+        return mainTable;
     }
 
-    public JTextField getTfAlamat() {
-        return tfAlamat;
+    public JTextField getFieldAlamat() {
+        return fieldAlamat;
     }
 
-    public JTextField getTfTelepon() {
-        return tfTelepon;
+    public JTextField getFieldTelepon() {
+        return fieldTelepon;
     }
 
 }
