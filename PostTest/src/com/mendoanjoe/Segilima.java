@@ -8,11 +8,11 @@ public class Segilima {
     }
 
     public double sisiSegilima() {
-        return (10 * jariLingkaranLuar / Math.sqrt(50 + (10 * Math.sqrt(5))));
+        return ((10 * jariLingkaranLuar) / (Math.sqrt(50 + (10 * Math.sqrt(5)))));
     }
 
     public double jariLingkaranDalam() {
-        return (sisiSegilima() * (Math.sqrt(25 + (10 * Math.sqrt(5)))) / 10);
+        return sisiSegilima() * ((Math.sqrt(25 + (10 * Math.sqrt(5)))) / 10);
     }
 
     public double diagonalSisi() {
@@ -28,7 +28,7 @@ public class Segilima {
     }
 
     public double luasSegilima() {
-        return (sisiSegilima() * Math.sqrt(25 + (10 * Math.sqrt(5)))) / 4;
+        return (Math.pow(sisiSegilima(), 2) * Math.sqrt(25 + (10 * Math.sqrt(5)))) / 4;
     }
 
     public void cetakSegilima() {

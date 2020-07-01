@@ -1,7 +1,7 @@
 package com.mendoanjoe;
 
 public class Main {
-    public static void main(String []args) {
+    public static void main(String[] args) {
         System.out.println(" == Data Titik == ");
         Titik P = new Titik(5, 5);
         Titik A = new Titik(9, 8);
@@ -21,7 +21,7 @@ public class Main {
         limas1.cetakLimas();
         System.out.println(" ");
         System.out.println(" == Data Bola == ");
-        Bola bola1= new Bola(P, A);
+        Bola bola1 = new Bola(P, A);
         bola1.cetakBola();
     }
 }
