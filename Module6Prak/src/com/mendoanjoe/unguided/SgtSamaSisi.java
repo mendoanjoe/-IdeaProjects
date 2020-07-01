@@ -36,7 +36,7 @@ public class SgtSamaSisi {
         System.out.println("Point \t\t\t\t: ");
         titik.tampil();
         titik2.tampil();
-        System.out.println("Sisi Segitiga \t\t: " + sisiSGT);
+        System.out.println("Panjang Sisi Segilima \t\t: " + sisi);
         System.out.println("Luas Segitiga \t\t: " + this.hitungLuas());
         System.out.println();
     }
