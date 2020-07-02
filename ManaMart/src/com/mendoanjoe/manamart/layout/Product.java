@@ -4,13 +4,7 @@ import com.mendoanjoe.manamart.Helper;
 import com.mendoanjoe.manamart.Main;
 import com.mendoanjoe.manamart.Naming;
 import com.mendoanjoe.manamart.model.MProduct;
-import com.mendoanjoe.manamart.model.MTransaction;
-import com.mendoanjoe.manamart.model.MTransactionItem;
-import com.mendoanjoe.manamart.model.MUser;
 import com.mendoanjoe.manamart.repostiory.RProduct;
-import com.mendoanjoe.manamart.repostiory.RTransaction;
-import com.mendoanjoe.manamart.repostiory.RTransactionItem;
-import com.mendoanjoe.manamart.repostiory.RUser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -28,17 +22,15 @@ public class Product {
     private JButton productHapusButton;
     private JButton productUbahButton;
     private JPanel productPanel;
-
-    private JFrame frame;
-    private Connection connection;
-
-    private static DefaultTableModel productTableModel = new DefaultTableModel();
+    private JFrame productFrame;
+    private Connection productConnection;
+    private DefaultTableModel productTableModel = new DefaultTableModel();
 
     public Product() {
         /**
          * Get Database Connection from Main
          */
-        connection = Main.getDatabaseConnection();
+        productConnection = Main.getDatabaseConnection();
 
         /**
          * Creating view
@@ -56,24 +48,25 @@ public class Product {
     }
 
     private void initFrame(String name) {
-        frame = new JFrame(name);
-        frame.setContentPane(productPanel);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
+        productFrame = new JFrame(name);
+        productFrame.setContentPane(productPanel);
+        productFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        productFrame.pack();
+
+        productFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                Main.route(Naming.TEXT_ROUTE_MAIN, frame);
+                Main.route(Naming.TEXT_ROUTE_MAIN, productFrame);
             }
         });
-        frame.pack();
     }
 
-    public JTable getProductTable() {
+    private JTable getProductTable() {
         return productTable;
     }
 
     public void show() {
-        frame.setVisible(true);
+        productFrame.setVisible(true);
     }
 
     private void clearProductTable() {
@@ -117,7 +110,7 @@ public class Product {
 
     private void loadDataTable() {
         clearProductTable();
-        List<MProduct> products = new RProduct(connection).selectAllProduct();
+        List<MProduct> products = new RProduct(productConnection).selectAllProduct();
 
         for (MProduct product: products) {
             productTableModel.addRow(new String[] {
@@ -151,7 +144,7 @@ public class Product {
                 String price = productTxtFieldHarga.getText();
 
                 if (!code.isEmpty() && !name.isEmpty() && !price.isEmpty() && !productTambahButton.getText().equals("Bersihkan")) {
-                    int product = new RProduct(connection).insertProduct(code, name, Integer.parseInt(price));
+                    int product = new RProduct(productConnection).insertProduct(code, name, Integer.parseInt(price));
                     if (product != -1) {
                         clearTextField();
                         loadDataTable();
@@ -170,7 +163,7 @@ public class Product {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (productTambahButton.getText().equals("Bersihkan")) {
                     int productId = Integer.parseInt(productTxtFieldId.getText());
-                    boolean product = new RProduct(connection).deleteProduct(productId);
+                    boolean product = new RProduct(productConnection).deleteProduct(productId);
 
                     if (product) {
                         clearTextField();
@@ -192,7 +185,7 @@ public class Product {
 
                 if (!code.isEmpty() && !name.isEmpty() && !price.isEmpty() && productTambahButton.getText().equals("Bersihkan")) {
                     int productId = Integer.parseInt(productTxtFieldId.getText());
-                    boolean product = new RProduct(connection).updateProduct(code, name, Integer.parseInt(price), productId);
+                    boolean product = new RProduct(productConnection).updateProduct(code, name, Integer.parseInt(price), productId);
 
                     if (product) {
                         clearTextField();

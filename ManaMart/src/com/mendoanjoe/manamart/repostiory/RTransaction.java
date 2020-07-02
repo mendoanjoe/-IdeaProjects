@@ -44,7 +44,7 @@ public class RTransaction {
         return -1;
     }
 
-    public boolean updateTransaction(int total, int paying, int paying_return, int user_id, int currentIndex) {
+    public boolean updateTransaction(int total, int paying, int paying_return, int user_id, int transactionId) {
         String query = "update transactions set total = ?, paying = ?, paying_return = ?, user_id = ? where id = ?";
         try {
             statement = connection.prepareStatement(query);
@@ -52,7 +52,7 @@ public class RTransaction {
             statement.setInt(2, paying);
             statement.setInt(3, paying_return);
             statement.setInt(4, user_id);
-            statement.setInt(5, currentIndex);
+            statement.setInt(5, transactionId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -64,11 +64,11 @@ public class RTransaction {
         return false;
     }
 
-    public boolean deleteTransaction(int currentIndex) {
+    public boolean deleteTransaction(int transactionId) {
         String query = "delete from trasnactions where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, currentIndex);
+            statement.setInt(1, transactionId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -133,11 +133,11 @@ public class RTransaction {
         return dataQuery;
     }
 
-    public MTransaction selectOneTransaction(int id) {
+    public MTransaction selectOneTransaction(int transactionId) {
         String query = "select * from transactions where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setInt(1, transactionId);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

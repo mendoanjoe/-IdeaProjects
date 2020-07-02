@@ -17,14 +17,14 @@ public class Login {
     private JButton loginMasukButton;
     private JPasswordField loginTxtFieldPassword;
     private JPanel loginPanel;
-    private JFrame frame;
-    private Connection connection;
+    private JFrame loginFrame;
+    private Connection loginConnection;
 
     public Login() {
         /**
          * Get Database Connection from Main
          */
-        connection = Main.getDatabaseConnection();
+        loginConnection = Main.getDatabaseConnection();
 
         /**
          * Creating view
@@ -43,7 +43,7 @@ public class Login {
         loginDaftarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Main.route(Naming.TEXT_ROUTE_REGISTER, frame);
+                Main.route(Naming.TEXT_ROUTE_REGISTER, loginFrame);
             }
         });
     }
@@ -60,12 +60,12 @@ public class Login {
                 String password = String.valueOf(loginTxtFieldPassword.getPassword());
 
                 if (!username.isEmpty() && !password.isEmpty()) {
-                    MUser user = new RUser(connection).selectOneUserByUsername(username);
+                    MUser user = new RUser(loginConnection).selectOneUserByUsername(username);
                     if (user != null) {
                         if (user.getPassword().equals(password)) {
                             Main.user = user;
                             Main.setUser(user);
-                            Main.route(Naming.TEXT_ROUTE_MAIN, frame);
+                            Main.route(Naming.TEXT_ROUTE_MAIN, loginFrame);
                         }
                     } else {
                         Helper.showDialog("Username / Password Salah");
@@ -78,13 +78,13 @@ public class Login {
     }
 
     private void initFrame(String name) {
-        frame = new JFrame(name);
-        frame.setContentPane(loginPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        loginFrame = new JFrame(name);
+        loginFrame.setContentPane(loginPanel);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.pack();
     }
 
     public void show() {
-        frame.setVisible(true);
+        loginFrame.setVisible(true);
     }
 }

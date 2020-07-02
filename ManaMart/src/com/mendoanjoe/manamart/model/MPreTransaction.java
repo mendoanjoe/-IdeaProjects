@@ -1,8 +1,5 @@
 package com.mendoanjoe.manamart.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class MPreTransaction {
     private String id;
     private String name;

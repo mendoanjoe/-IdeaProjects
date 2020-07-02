@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.util.Date;
 
 public class Register {
     private JTextField registerTxtFieldNama;
@@ -21,14 +20,14 @@ public class Register {
     private JButton registerDaftarButton;
     private JButton registerMasukButton;
     private JPanel registerPanel;
-    private JFrame frame;
-    private Connection connection;
+    private JFrame registerFrame;
+    private Connection registerConnection;
 
     public Register() {
         /**
          * Get Database Connection from Main
          */
-        connection = Main.getDatabaseConnection();
+        registerConnection = Main.getDatabaseConnection();
 
         /**
          * Creating view
@@ -47,7 +46,7 @@ public class Register {
         registerMasukButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Main.route(Naming.TEXT_ROUTE_LOGIN, frame);
+                Main.route(Naming.TEXT_ROUTE_LOGIN, registerFrame);
             }
         });
     }
@@ -65,14 +64,14 @@ public class Register {
                 if (!nama.isEmpty() && !username.isEmpty() && !password.isEmpty()
                         && !tanggal_lahir.isEmpty() && !alamat.isEmpty()) {
                     if (Helper.validDate(tanggal_lahir)) {
-                        int userId = new RUser(connection).insertUser(nama, username, password, alamat, Helper.getDate(tanggal_lahir));
+                        int userId = new RUser(registerConnection).insertUser(nama, username, password, alamat, Helper.getDate(tanggal_lahir));
                         if (userId != -1) {
-                            MUser user = new RUser(connection).selectOneUser(userId);
+                            MUser user = new RUser(registerConnection).selectOneUser(userId);
                             if (user != null) {
                                 Helper.showDialog("Berhasil Membuat Akun");
                                 Main.user = user;
                                 Main.setUser(user);
-                                Main.route(Naming.TEXT_ROUTE_MAIN, frame);
+                                Main.route(Naming.TEXT_ROUTE_MAIN, registerFrame);
                             }
                         }
                     } else {
@@ -86,13 +85,13 @@ public class Register {
     }
 
     private void initFrame(String name) {
-        frame = new JFrame(name);
-        frame.setContentPane(registerPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        registerFrame = new JFrame(name);
+        registerFrame.setContentPane(registerPanel);
+        registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        registerFrame.pack();
     }
 
     public void show() {
-        frame.setVisible(true);
+        registerFrame.setVisible(true);
     }
 }

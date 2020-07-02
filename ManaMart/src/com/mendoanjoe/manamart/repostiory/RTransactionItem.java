@@ -1,7 +1,6 @@
 package com.mendoanjoe.manamart.repostiory;
 
 import com.mendoanjoe.manamart.Helper;
-import com.mendoanjoe.manamart.model.MTransaction;
 import com.mendoanjoe.manamart.model.MTransactionItem;
 
 import java.sql.*;
@@ -46,7 +45,7 @@ public class RTransactionItem {
         return -1;
     }
 
-    public boolean updateTransactionItem(String name, int price, int qty, int transaction_id, int product_id, int currentIndex) {
+    public boolean updateTransactionItem(String name, int price, int qty, int transaction_id, int product_id, int transactionItemId) {
         String query = "update transaction_items set name = ?, price = ?, qty = ?, transaction_id = ?, product_id = ? where id = ?";
         try {
             statement = connection.prepareStatement(query);
@@ -55,7 +54,7 @@ public class RTransactionItem {
             statement.setInt(3, qty);
             statement.setInt(4, transaction_id);
             statement.setInt(5, product_id);
-            statement.setInt(6, currentIndex);
+            statement.setInt(6, transactionItemId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -67,11 +66,11 @@ public class RTransactionItem {
         return false;
     }
 
-    public boolean deleteTransactionItem(int currentIndex) {
+    public boolean deleteTransactionItem(int transactionItemId) {
         String query = "delete from transaction_items where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, currentIndex);
+            statement.setInt(1, transactionItemId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -110,11 +109,11 @@ public class RTransactionItem {
         return dataQuery;
     }
 
-    public MTransactionItem selectOneTransactionItem(int id) {
+    public MTransactionItem selectOneTransactionItem(int transactionItemId) {
         String query = "select * from transaction_items where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setInt(1, transactionItemId);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

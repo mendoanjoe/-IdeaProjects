@@ -46,7 +46,7 @@ public class RUser {
         return -1;
     }
 
-    public boolean updateUser(String name, String username, String password, String address, Date dob, int currentIndex) {
+    public boolean updateUser(String name, String username, String password, String address, Date dob, int userId) {
         String query = "update users set name = ?, username = ?, password = ?, address = ?, dob = ? where id = ?";
         try {
             statement = connection.prepareStatement(query);
@@ -55,7 +55,7 @@ public class RUser {
             statement.setString(3, password);
             statement.setString(4, address);
             statement.setDate(5, new java.sql.Date(dob.getTime()));
-            statement.setInt(6, currentIndex);
+            statement.setInt(6, userId);
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
                 return true;
@@ -66,11 +66,11 @@ public class RUser {
         return false;
     }
 
-    public boolean deleteUser(int currentIndex) {
+    public boolean deleteUser(int userId) {
         String query = "delete from users where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, currentIndex);
+            statement.setInt(1, userId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)

@@ -3,11 +3,9 @@ package com.mendoanjoe.manamart.layout;
 import com.mendoanjoe.manamart.Helper;
 import com.mendoanjoe.manamart.Main;
 import com.mendoanjoe.manamart.Naming;
-import com.mendoanjoe.manamart.model.MProduct;
 import com.mendoanjoe.manamart.model.MTransaction;
 import com.mendoanjoe.manamart.model.MTransactionItem;
 import com.mendoanjoe.manamart.model.MUser;
-import com.mendoanjoe.manamart.repostiory.RProduct;
 import com.mendoanjoe.manamart.repostiory.RTransaction;
 import com.mendoanjoe.manamart.repostiory.RTransactionItem;
 import com.mendoanjoe.manamart.repostiory.RUser;
@@ -26,16 +24,15 @@ public class Transaction {
     private JTable transactionTable;
     private JPanel transactionPanel;
     private JButton cariButton;
-    private JFrame frame;
-    private Connection connection;
-
-    private static DefaultTableModel transactionTableModel = new DefaultTableModel();
+    private JFrame transactionFrame;
+    private Connection transactionConnection;
+    private DefaultTableModel transactionTableModel = new DefaultTableModel();
 
     public Transaction() {
         /**
          * Get Database Connection from Main
          */
-        connection = Main.getDatabaseConnection();
+        transactionConnection = Main.getDatabaseConnection();
 
         /**
          * Creating view
@@ -51,16 +48,17 @@ public class Transaction {
     }
 
     private void initFrame(String name) {
-        frame = new JFrame(name);
-        frame.setContentPane(transactionPanel);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
+        transactionFrame = new JFrame(name);
+        transactionFrame.setContentPane(transactionPanel);
+        transactionFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        transactionFrame.pack();
+
+        transactionFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                Main.route(Naming.TEXT_ROUTE_MAIN, frame);
+                Main.route(Naming.TEXT_ROUTE_MAIN, transactionFrame);
             }
         });
-        frame.pack();
     }
 
     public JTable getTransactionTable() {
@@ -68,7 +66,7 @@ public class Transaction {
     }
 
     public void show() {
-        frame.setVisible(true);
+        transactionFrame.setVisible(true);
     }
 
     private void clearTransactionTable() {
@@ -100,11 +98,11 @@ public class Transaction {
 
     private void loadDataTable() {
         clearTransactionTable();
-        List<MTransaction> transactions = new RTransaction(connection).selectAllTransaction();
+        List<MTransaction> transactions = new RTransaction(transactionConnection).selectAllTransaction();
 
         for (MTransaction transaction: transactions) {
-            MUser user = new RUser(connection).selectOneUser(transaction.getUser_id());
-            List<MTransactionItem> transactionItems = new RTransactionItem(connection).selectAllTransactionItem();
+            MUser user = new RUser(transactionConnection).selectOneUser(transaction.getUser_id());
+            List<MTransactionItem> transactionItems = new RTransactionItem(transactionConnection).selectAllTransactionItem();
 
             for (MTransactionItem transactionItem: transactionItems) {
                 transactionTableModel.addRow(new String[] {
@@ -130,15 +128,15 @@ public class Transaction {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!transactionCariTextField.getText().isEmpty()) {
                     String username = transactionCariTextField.getText();
-                    MUser user = new RUser(connection).selectOneUserByUsername(username);
+                    MUser user = new RUser(transactionConnection).selectOneUserByUsername(username);
                     if (user != null) {
-                        List<MTransaction> transactions = new RTransaction(connection).selectAllTransactionByUserId(user.getId());
+                        List<MTransaction> transactions = new RTransaction(transactionConnection).selectAllTransactionByUserId(user.getId());
                         if (transactions.size() > 0) {
                             clearTransactionTable();
 
                             for (MTransaction transaction: transactions) {
-                                user = new RUser(connection).selectOneUser(transaction.getUser_id());
-                                List<MTransactionItem> transactionItems = new RTransactionItem(connection).selectAllTransactionItem();
+                                user = new RUser(transactionConnection).selectOneUser(transaction.getUser_id());
+                                List<MTransactionItem> transactionItems = new RTransactionItem(transactionConnection).selectAllTransactionItem();
 
                                 for (MTransactionItem transactionItem: transactionItems) {
                                     transactionTableModel.addRow(new String[] {

@@ -43,14 +43,14 @@ public class RProduct {
         return -1;
     }
 
-    public boolean updateProduct(String code, String name, int price, int currentIndex) {
+    public boolean updateProduct(String code, String name, int price, int productId) {
         String query = "update products set code = ?, name = ?, price = ? where id = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, code);
             statement.setString(2, name);
             statement.setInt(3, price);
-            statement.setInt(4, currentIndex);
+            statement.setInt(4, productId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -62,11 +62,11 @@ public class RProduct {
         return false;
     }
 
-    public boolean deleteProduct(int currentIndex) {
+    public boolean deleteProduct(int productId) {
         String query = "delete from products where id = ?";
         try {
             statement = connection.prepareStatement(query);
-            statement.setInt(1, currentIndex);
+            statement.setInt(1, productId);
 
             int rowAffected = statement.executeUpdate();
             if (rowAffected == 1)
@@ -126,11 +126,11 @@ public class RProduct {
         return null;
     }
 
-    public MProduct selectOneProduct(int id) {
+    public MProduct selectOneProduct(int productId) {
         String query = "select * from products where id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setInt(1, productId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

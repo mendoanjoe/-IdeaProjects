@@ -13,6 +13,12 @@ public class MProduct {
         this.price = price;
     }
 
+    public MProduct(int id, String code, String name) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

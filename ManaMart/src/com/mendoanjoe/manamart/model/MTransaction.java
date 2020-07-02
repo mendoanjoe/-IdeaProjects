@@ -1,7 +1,5 @@
 package com.mendoanjoe.manamart.model;
 
-import java.util.List;
-
 public class MTransaction {
     private int id;
     private int total;
