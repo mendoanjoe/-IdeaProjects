@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 public class Main {
     // Layout
     private static ManaMart mainActivity;
-    private static Login loginActivity = new Login();
+    private static Login loginActivity;
     private static Register registerActivity;
     private static Transaction transactionActivity;
     private static Product productActivity;
@@ -24,6 +24,7 @@ public class Main {
 
     public static void initUser() {
         if (Main.getUser() == null) {
+            loginActivity = new Login();
             loginActivity.show();
             Helper hg = new Helper();
         }
