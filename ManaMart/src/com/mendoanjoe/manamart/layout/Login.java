@@ -3,6 +3,7 @@ package com.mendoanjoe.manamart.layout;
 import com.mendoanjoe.manamart.Helper;
 import com.mendoanjoe.manamart.Main;
 import com.mendoanjoe.manamart.Naming;
+import com.mendoanjoe.manamart.intrf.LoginMetode;
 import com.mendoanjoe.manamart.model.MUser;
 import com.mendoanjoe.manamart.repostiory.RUser;
 
@@ -11,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
-public class Login {
+public class Login implements LoginMetode {
     private JTextField loginTxtFieldUsername;
     private JButton loginDaftarButton;
     private JButton loginMasukButton;
@@ -39,7 +40,14 @@ public class Login {
         initDaftarButton();
     }
 
-    private void initDaftarButton() {
+
+
+    public void show() {
+        loginFrame.setVisible(true);
+    }
+
+    @Override
+    public void initDaftarButton() {
         loginDaftarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -48,7 +56,8 @@ public class Login {
         });
     }
 
-    private void initMasukButton() {
+    @Override
+    public void initMasukButton() {
         /**
          * Button Masuk
          * @OnClicked
@@ -77,14 +86,11 @@ public class Login {
         });
     }
 
-    private void initFrame(String name) {
+    @Override
+    public void initFrame(String name) {
         loginFrame = new JFrame(name);
         loginFrame.setContentPane(loginPanel);
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.pack();
-    }
-
-    public void show() {
-        loginFrame.setVisible(true);
     }
 }

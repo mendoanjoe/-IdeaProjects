@@ -1,19 +1,27 @@
 package com.mendoanjoe.manamart.model;
 
 public class MPreTransaction {
-    private String id;
+    private int id;
+    private String code;
     private String name;
-    private String price;
+    private int price;
     private int qty;
 
-    public MPreTransaction(String id, String name, String price, int qty) {
+    public MPreTransaction(String code, String name, int price, int qty) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.qty = qty;
+    }
+
+    public MPreTransaction(int id, String name, int price, int qty) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.qty = qty;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -21,11 +29,15 @@ public class MPreTransaction {
         return name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public int getQty() {
         return qty;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

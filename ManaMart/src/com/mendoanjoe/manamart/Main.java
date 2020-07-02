@@ -25,6 +25,7 @@ public class Main {
     public static void initUser() {
         if (Main.getUser() == null) {
             loginActivity.show();
+            Helper hg = new Helper();
         }
     }
 

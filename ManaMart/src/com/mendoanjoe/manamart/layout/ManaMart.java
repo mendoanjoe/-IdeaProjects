@@ -107,9 +107,9 @@ public class ManaMart {
              * If not duplicated just insert
              */
             mainTableModel.addRow(new String[] {
-                    mPreTransaction.getId(),
+                    mPreTransaction.getCode(),
                     mPreTransaction.getName(),
-                    mPreTransaction.getPrice(),
+                    String.valueOf(mPreTransaction.getPrice()),
                     String.valueOf(mPreTransaction.getQty())
             });
             getTable().setModel(mainTableModel);
@@ -236,7 +236,7 @@ public class ManaMart {
                              */
                             String codeProduct = mainTxtFieldKodeBarang.getText();
                             String name = mainTxtFieldNama.getText();
-                            String price = mainTxtFieldHarga.getText();
+                            int price = Integer.parseInt(String.valueOf(mainTxtFieldHarga.getText()));
                             int qty = Integer.parseInt(String.valueOf(mainTxtFieldJumlah.getText()));
 
                             /**
